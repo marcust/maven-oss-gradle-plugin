@@ -60,8 +60,8 @@ class MavenOssPlugin implements Plugin<Project> {
            password = secrets["gpgKeyPassword"];
          }
          
-         def uploadTask = p.getByName( "uploadArchives" )
-         def installTask = p.getByName( "install" );
+         def uploadTask = p.tasks.getByName( "uploadArchives" )
+         def installTask = p.tasks.getByName( "install" );
          installTask.dependsOn( packageSources );
          def repUrl = secrets["repositoryUrl"]
          def repUser = secrets["repositoryUser"]
