@@ -1,6 +1,6 @@
 buildscript {
    repositories {
-      mavenCentral();
+      mavenCentral()
    }
 
    dependencies {
@@ -9,20 +9,22 @@ buildscript {
 }
 
 apply plugin: 'groovy'
-apply plugin: 'maven-oss'
+apply plugin: 'application'
+//apply plugin: 'maven-oss'
 
 group = "net.sourceforge.purrpackage"
-version = "1.0"
+version = "1.0-mt"
 
 repositories {
   mavenCentral();
+  mavenLocal();
 }
 
 dependencies {
   groovy localGroovy()
   compile gradleApi()
-  compile "de.huxhorn.gradle:de.huxhorn.gradle.pgp-plugin:0.0.3"  
-  runtime "de.huxhorn.gradle:de.huxhorn.gradle.pgp-plugin:0.0.3"
+  compile "de.huxhorn.gradle:de.huxhorn.gradle.pgp-plugin:0.0.4-SNAPSHOT"  
+  runtime "de.huxhorn.gradle:de.huxhorn.gradle.pgp-plugin:0.0.4-SNAPSHOT"
 }
 
 task intTest( type: GradleBuild ) {
@@ -38,8 +40,9 @@ task intTest( type: GradleBuild ) {
 
 check.dependsOn( intTest )
 
-install.dependsOn( check );
+installApp.dependsOn( check );
 
+/*
 pomConfigurator.addDeveloper( "John Roth", "dzhaughnroth@sourceforge.net" );
 pomConfigurator.gnuLicense();
 pomConfigurator.configurePom( { 
@@ -58,3 +61,4 @@ pomConfigurator.configurePom( {
      }
    }
 } )
+*/

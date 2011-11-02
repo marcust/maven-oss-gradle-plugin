@@ -1,15 +1,17 @@
 buildscript {
    repositories {
       flatDir name: "parentbuild", dirs: ["${projectDir}/../build/libs"];
+      mavenLocal();
       mavenCentral();
    }
    dependencies {
       classpath "net.sourceforge.purrpackage:maven-oss-gradle-plugin:$mavenossVersion"
-      classpath "de.huxhorn.gradle:de.huxhorn.gradle.pgp-plugin:0.0.3"
+      classpath "de.huxhorn.gradle:de.huxhorn.gradle.pgp-plugin:0.0.4-SNAPSHOT"
    }
 }
 
 apply plugin: 'java'
+apply plugin: 'application'
 apply plugin: 'groovy'
 apply plugin: 'maven-oss'
 
@@ -19,7 +21,7 @@ version = "0.0.1"
 dependencies {
              groovy localGroovy();
 }
-install.doLast( {
+installApp.doLast( {
   def home = System.properties["user.home"];
   def f = file( "${home}/.m2/repository/net/sourceforge/purrpackage/maven-oss-integration-test/test/0.0.1" );
   def pomFile = new File( f, "test-${version}.pom" );
@@ -50,7 +52,7 @@ pomConfigurator.configurePom( {
                  } )
 } );
 
-
 packageJavadoc << { println( "task packageJavadoc run" ) };
 mavenOssPluginJavadoc << { println( "task mavenOssJavadoc run" ) };
 packageSources << { println( "task packageSources run" ) };
+
